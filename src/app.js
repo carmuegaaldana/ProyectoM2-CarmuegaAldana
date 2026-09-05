@@ -1,5 +1,6 @@
 const express = require("express");
 const authorsRoutes = require("./routes/authorsRoutes");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
@@ -11,5 +12,7 @@ app.get("/", (req, res) => {
     message: "API MiniBlog funcionando",
   });
 });
+
+app.use(errorHandler);
 
 module.exports = app;
