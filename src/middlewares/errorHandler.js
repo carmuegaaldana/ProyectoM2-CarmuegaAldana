@@ -1,4 +1,9 @@
 function errorHandler(error, req, res, next) {
+  if (error.type === "entity.parse.failed") {
+  return res.status(400).json({
+    error: "JSON inválido",
+  });
+  }
   if (error.code === "23505") {
     return res.status(400).json({
       error: "El email ya está registrado",

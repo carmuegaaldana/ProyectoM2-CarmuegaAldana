@@ -1,12 +1,14 @@
 const express = require("express");
-const { 
-    getAllPosts,
-    getPostById,
-    getPostsByAuthorId,
-    createPost,
-    updatePost,
-    deletePost,
- } = require("../services/postsService");
+const {
+  getAllPosts,
+  getPostById,
+  getPostsByAuthorId,
+  createPost,
+  updatePost,
+  deletePost,
+} = require("../services/postsService");
+
+const validateId = require("../middlewares/validateId");
 
 const router = express.Router();
 
@@ -22,7 +24,15 @@ router.get("/", async (req, res, next) => {
 
 router.get("/author/:authorId", async (req, res, next) => {
   try {
-    const posts = await getPostsByAuthorId(req.params.authorId);
+    const authorId = Number(req.params.authorId);
+
+    if (!Number.isInteger(authorId) || authorId <= 0) {
+      return res.status(400).json({
+        error: "ID de autor inválido",
+      });
+    }
+
+    const posts = await getPostsByAuthorId(authorId);
 
     res.status(200).json(posts);
   } catch (error) {
@@ -30,7 +40,7 @@ router.get("/author/:authorId", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", validateId, async (req, res, next) => {
   try {
     const post = await getPostById(req.params.id);
 
@@ -50,8 +60,11 @@ router.post("/", async (req, res, next) => {
   try {
     const { author_id, title, content, published } = req.body;
 
+    const authorId = Number(author_id);
+
     if (
-      !author_id ||
+      !Number.isInteger(authorId) ||
+      authorId <= 0 ||
       typeof title !== "string" ||
       !title.trim() ||
       typeof content !== "string" ||
@@ -69,7 +82,7 @@ router.post("/", async (req, res, next) => {
     }
 
     const post = await createPost({
-      author_id,
+      author_id: authorId,
       title: title.trim(),
       content: content.trim(),
       published,
@@ -81,12 +94,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", validateId, async (req, res, next) => {
   try {
     const { author_id, title, content, published } = req.body;
+    const authorId = Number(author_id);
 
     if (
-      !author_id ||
+      !Number.isInteger(authorId) ||
+      authorId <= 0 ||
       typeof title !== "string" ||
       !title.trim() ||
       typeof content !== "string" ||
@@ -104,7 +119,7 @@ router.put("/:id", async (req, res, next) => {
     }
 
     const post = await updatePost(req.params.id, {
-      author_id,
+      author_id: authorId,
       title: title.trim(),
       content: content.trim(),
       published,
@@ -122,7 +137,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", validateId, async (req, res, next) => {
   try {
     const deletedPost = await deletePost(req.params.id);
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const authorsRoutes = require("./routes/authorsRoutes");
 const postsRoutes = require("./routes/postsRoutes");
+const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use(notFound);
 app.use(errorHandler);
 
 module.exports = app;
