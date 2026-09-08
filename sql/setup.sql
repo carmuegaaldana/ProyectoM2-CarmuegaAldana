@@ -18,3 +18,5 @@ CREATE TABLE posts (
     REFERENCES authors(id)
     ON DELETE CASCADE
 );
+
+CREATE INDEX idx_posts_author_id ON posts(author_id);

@@ -12,6 +12,8 @@ const {
   getAllAuthors,
   getAuthorById,
   createAuthor,
+  updateAuthor,
+  deleteAuthor,
 } = require("../src/services/authorsService");
 
 const app = require("../src/app");
@@ -106,5 +108,46 @@ describe("POST /authors", () => {
       error: "Name y email son obligatorios",
     });
     expect(createAuthor).not.toHaveBeenCalled();
+  });
+});
+
+describe("PUT /authors/:id", () => {
+  test("debe responder 200 y actualizar un autor", async () => {
+    const authorData = {
+      name: "Ana Actualizada",
+      email: "ana.actualizada@example.com",
+      bio: "Biografía actualizada",
+    };
+    const updatedAuthor = { id: 1, ...authorData };
+
+    updateAuthor.mockResolvedValue(updatedAuthor);
+
+    const response = await request(app).put("/authors/1").send(authorData);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(updatedAuthor);
+    expect(updateAuthor).toHaveBeenCalledWith("1", authorData);
+  });
+});
+
+describe("DELETE /authors/:id", () => {
+  test("debe responder 204 y eliminar un autor", async () => {
+    deleteAuthor.mockResolvedValue({ id: 1 });
+
+    const response = await request(app).delete("/authors/1");
+
+    expect(response.status).toBe(204);
+    expect(response.body).toEqual({});
+    expect(deleteAuthor).toHaveBeenCalledWith("1");
+  });
+});
+
+describe("validación de IDs de autores", () => {
+  test("debe responder 400 ante un ID inválido", async () => {
+    const response = await request(app).get("/authors/abc");
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: "ID inválido" });
+    expect(getAuthorById).not.toHaveBeenCalled();
   });
 });

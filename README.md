@@ -21,7 +21,7 @@ El proyecto fue realizado como trabajo integrador del Módulo 2 para aplicar con
 
 ```bash
 git clone https://github.com/carmuegaaldana/ProyectoM2-CarmuegaAldana.git
-cd miniblog-api
+cd ProyectoM2-CarmuegaAldana
 ```
 
 2. Instalar las dependencias:
@@ -95,7 +95,7 @@ Ejecutar las pruebas automatizadas:
 npm test
 ```
 
-Los tests utilizan Jest y Supertest. Los servicios se simulan mediante mocks, por lo que las pruebas de rutas no modifican la base de datos local.
+Los tests utilizan Jest y Supertest. Las pruebas de rutas simulan los servicios y las pruebas de servicios simulan el pool de PostgreSQL, por lo que no modifican la base de datos local. La suite verifica respuestas exitosas, errores, validaciones y el uso de consultas SQL parametrizadas.
 
 ## Documentación OpenAPI
 

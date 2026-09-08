@@ -75,7 +75,6 @@ router.put("/:id", validateId, async (req, res, next) => {
       typeof email !== "string" ||
       !email.trim()
     ) {
-      
       return res.status(400).json({
         error: "Name y email son obligatorios",
       });

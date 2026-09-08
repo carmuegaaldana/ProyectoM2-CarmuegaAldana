@@ -19,12 +19,7 @@ async function getPostById(id) {
   return result.rows[0];
 }
 
-async function createPost({
-  author_id,
-  title,
-  content,
-  published = false,
-}) {
+async function createPost({ author_id, title, content, published = false }) {
   const result = await pool.query(
     `INSERT INTO posts (author_id, title, content, published)
      VALUES ($1, $2, $3, $4)
@@ -35,7 +30,8 @@ async function createPost({
   return result.rows[0];
 }
 
-async function updatePost(id,
+async function updatePost(
+  id,
   { author_id, title, content, published = false }
 ) {
   const result = await pool.query(
@@ -51,21 +47,21 @@ async function updatePost(id,
 
 async function getPostsByAuthorId(authorId) {
   const result = await pool.query(
-  `SELECT
-     p.id,
-     p.author_id,
-     p.title,
-     p.content,
-     p.published,
-     p.created_at,
-     a.name AS author_name,
-     a.email AS author_email,
-     a.bio AS author_bio
-   FROM posts AS p
-   JOIN authors AS a ON p.author_id = a.id
-   WHERE p.author_id = $1
-   ORDER BY p.id`,
-  [authorId]
+    `SELECT
+       p.id,
+       p.author_id,
+       p.title,
+       p.content,
+       p.published,
+       p.created_at,
+       a.name AS author_name,
+       a.email AS author_email,
+       a.bio AS author_bio
+     FROM posts AS p
+     JOIN authors AS a ON p.author_id = a.id
+     WHERE p.author_id = $1
+     ORDER BY p.id`,
+    [authorId]
   );
 
   return result.rows;
