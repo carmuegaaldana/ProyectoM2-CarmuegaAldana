@@ -114,17 +114,22 @@ La documentación incluye los esquemas, parámetros, cuerpos y respuestas HTTP d
 1. Crear un proyecto en Railway.
 2. Agregar un servicio PostgreSQL.
 3. Conectar el repositorio de GitHub como servicio de la API.
-4. Configurar las variables `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` y `PORT` con los datos del servicio PostgreSQL de Railway.
+4. Configurar `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` como variables de referencia al servicio PostgreSQL. Railway proporciona `PORT` automáticamente.
 5. Ejecutar `sql/setup.sql` y `sql/seed.sql` en la base remota.
 6. Utilizar `npm start` como comando de inicio.
 7. Generar un dominio público y comprobar los endpoints.
 
-Datos que se completarán después del despliegue:
+Datos del despliegue:
 
 ```text
-Internal URL: PENDIENTE
-Public URL: PENDIENTE
+Internal database host: postgres.railway.internal
+Internal database URL: ${{Postgres.DATABASE_URL}} (referencia privada de Railway)
+Public API URL: https://proyectom2-carmuegaaldana-production.up.railway.app
 ```
+
+Evidencia del despliegue exitoso:
+
+![Deployment exitoso en Railway](docs/images/railway-deployment-success.png)
 
 Las credenciales de Railway no deben incluirse en el repositorio.
 
