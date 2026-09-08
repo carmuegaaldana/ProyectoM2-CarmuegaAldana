@@ -20,7 +20,7 @@ El proyecto fue realizado como trabajo integrador del Módulo 2 para aplicar con
 1. Clonar el repositorio y entrar en la carpeta:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/carmuegaaldana/ProyectoM2-CarmuegaAldana.git
 cd miniblog-api
 ```
 
