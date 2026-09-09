@@ -85,7 +85,7 @@ Ejecución normal:
 npm start
 ```
 
-La API local estará disponible en `http://localhost:3000`.
+Ambos comandos utilizan `index.js`, ubicado en la raíz del proyecto, como punto de entrada de la aplicación. La API local estará disponible en `http://localhost:3000`.
 
 ## Ejecución de tests
 
