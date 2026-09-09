@@ -133,6 +133,17 @@ Evidencia del despliegue exitoso:
 
 Las credenciales de Railway no deben incluirse en el repositorio.
 
+## Limitaciones y mejoras futuras
+
+La versión actual cumple con las operaciones CRUD solicitadas para autores y publicaciones. Como posibles mejoras futuras se consideran:
+
+- Incorporar autenticación y autorización de usuarios.
+- Agregar paginación y filtros al listado de publicaciones.
+- Validar el formato de los correos electrónicos.
+- Publicar una interfaz Swagger UI integrada en la aplicación.
+- Incorporar pruebas de integración con una base de datos exclusiva para testing.
+- Agregar comentarios relacionados con autores y publicaciones como funcionalidad adicional.
+
 ## Registro del uso de IA
 
 Se utilizó una herramienta de inteligencia artificial como acompañamiento durante el proyecto. La IA ayudó a interpretar la consigna, organizar el trabajo en etapas, revisar el código, explicar errores y preparar la documentación. El código fue probado paso a paso y las decisiones fueron revisadas durante el desarrollo.
